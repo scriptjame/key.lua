@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Script Key</title>
+
+<style>
+body{
+background:#0f172a;
+color:white;
+font-family:sans-serif;
+text-align:center;
+margin-top:120px;
+}
+
+.box{
+background:#111827;
+padding:40px;
+border-radius:10px;
+display:inline-block;
+}
+
+.key{
+font-size:30px;
+color:#22c55e;
+margin-top:15px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="box">
+<h2>Today's Script Key</h2>
+<div id="key" class="key">Loading...</div>
+</div>
+
+<script>
+
+async function loadKey(){
+
+let res = await fetch("https://raw.githubusercontent.com/scriptjame/key.lua/main/keys.lua");
+let text = await res.text();
+
+let keys = text.match(/"([^"]+)"/g).map(k=>k.replace(/"/g,""));
+
+let day = new Date().getUTCDate();
+
+let index = (day-1)%keys.length;
+
+document.getElementById("key").innerText = keys[index];
+
+}
+
+loadKey();
+
+</script>
+
+</body>
+</html>
