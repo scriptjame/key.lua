@@ -1,59 +1,82 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
 <title>Script Key</title>
 
 <style>
 body{
-background:#0f172a;
+background:#081a34;
 color:white;
-font-family:sans-serif;
 text-align:center;
-margin-top:120px;
+font-family:sans-serif;
+padding-top:150px;
 }
 
-.box{
-background:#111827;
-padding:40px;
-border-radius:10px;
-display:inline-block;
+button{
+padding:12px 25px;
+font-size:16px;
+cursor:pointer;
+border:none;
+border-radius:6px;
+background:#2ecc71;
+color:white;
 }
-
-.key{
-font-size:30px;
-color:#22c55e;
-margin-top:15px;
-}
-
 </style>
+
 </head>
 
 <body>
 
-<div class="box">
-<h2>Today's Script Key</h2>
-<div id="key" class="key">Loading...</div>
-</div>
+<h1>Script Key</h1>
+
+<h2 id="key" style="color:#00ff88"></h2>
+
+<button onclick="copyKey()">Copy Key</button>
 
 <script>
 
-async function loadKey(){
+var keys = [
+"grtnjkn4aewas49",
+"5fhgk29sld92kd",
+"asf82jdksl22",
+"nzkd9201lsks",
+"skf92kdlw020",
+"zzx920dksl22",
+"4kds82jdsla1",
+"9sld2kdl221a",
+"0ksd9dkd22zz",
+"1ksd92kdl0as",
+"zz12kdlwkk21",
+"ksld29dk22ss",
+"0ss92kdlsk33",
+"2lsd92kdlas9",
+"3lsd92kd1sa0",
+"4lsd92kd1saa",
+"5lsd92kd2222",
+"6lsd92kd1aaa",
+"7lsd92kdsaaa",
+"8lsd92kd1aaa",
+"9lsd92kd1aaa",
+"10lsd92kd1aa",
+"11lsd92kd1aa",
+"12lsd92kd1aa",
+"13lsd92kd1aa",
+"14lsd92kd1aa",
+"15lsd92kd1aa",
+"16lsd92kd1aa",
+"17lsd92kd1aa",
+"18lsd92kd1aa"
+];
 
-let res = await fetch("https://raw.githubusercontent.com/scriptjame/key.lua/main/keys.lua");
-let text = await res.text();
+var day = new Date().getDate();
+var key = keys[day % keys.length];
 
-let keys = text.match(/"([^"]+)"/g).map(k=>k.replace(/"/g,""));
+document.getElementById("key").innerText = key;
 
-let day = new Date().getUTCDate();
-
-let index = (day-1)%keys.length;
-
-document.getElementById("key").innerText = keys[index];
-
+function copyKey(){
+navigator.clipboard.writeText(key);
+alert("Key copied!");
 }
-
-loadKey();
 
 </script>
 
